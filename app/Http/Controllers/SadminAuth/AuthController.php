@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\AdminAuth;
 
-use App\User;
+use App\Admin;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-//use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
@@ -22,17 +21,15 @@ class AuthController extends Controller
     |
     */
 
-   // use AuthenticatesAndRegistersUsers, ThrottlesLogins;
-    use AuthenticatesUsers, ThrottlesLogins;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectAfterLogout = '/auth/login';
-    protected $redirectTo = '/admin/dashboard';
-
+    protected $redirectTo = '/webpanel';
+    protected $guard = 'sadmin';
     /**
      * Create a new authentication controller instance.
      *
@@ -40,10 +37,17 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);      
-         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
+    public function showLoginForm(){
+
+        if(view()->exists('auth.authenticate')){
+            return view('auth.authenticate');
+        }
+        return view('sadmin.auth.login');
+    }
+   
     /**
      * Get a validator for an incoming registration request.
      *
@@ -57,20 +61,5 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
+    }   
 }

@@ -1,12 +1,11 @@
 <?php
-
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Madmin extends Authenticatable
 {
-    
+    protected $table = 'dmv_super_admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -15,7 +14,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
-
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -24,4 +23,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function getId() {
+        return $this->id;
+    }
 }
