@@ -45,6 +45,18 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
+       'user' =>[
+        'driver' => 'session',
+        'provider' => 'user',
+        ],
+        'madmin' => [
+            'driver' => 'session',
+            'provider' => 'madmin',
+        ],
+        'sadmin' => [
+            'driver' => 'session',
+            'provider' => 'sadmin',
+        ],
     ],
 
     /*
@@ -65,10 +77,19 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
+    
+       'users' =>[
+        'driver' => 'eloquent',
+        'model' => App\Madmin::class,
+        ], 
+        'madmin' => [
+        'driver' => 'eloquent',
+        'model' => App\Madmin::class,
         ],
+        'sadmin' => [
+        'driver' => 'eloquent',
+        'model' => App\Sadmin::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',
