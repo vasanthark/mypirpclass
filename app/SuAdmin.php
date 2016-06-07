@@ -3,7 +3,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Madmin extends Authenticatable
+class SuAdmin extends Authenticatable
 {
     protected $table = 'dmv_super_admin';
     /**

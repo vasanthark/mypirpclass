@@ -1,11 +1,11 @@
 <?php
-
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Sadmin extends Authenticatable
+class Admin extends Authenticatable
 {
+    protected $table = 'dmv_admin';
     /**
      * The attributes that are mass assignable.
      *
