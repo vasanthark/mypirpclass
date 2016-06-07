@@ -21,9 +21,7 @@ class DashboardController extends Controller {
      *
      * @return Response
      */
-    public function index() {   
-        echo 'aaa';
-        exit;
+    public function index() {          
         return view('admin.dashboard.index');
     }
 
