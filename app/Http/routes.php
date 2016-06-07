@@ -11,34 +11,21 @@
 |
 */
 
+//Route::auth();
+Route::get('/home', 'HomeController@index');
 
-//
-//// Super Admin area
-Route::get('admin', function () {
-    return redirect('/admin/dashboard');
-});
+Route::get('/suadmin/login', 'SuAdmin\AuthController@getLogin');
+Route::post('/suadmin/login', 'SuAdmin\AuthController@postLogin');
+Route::get('/suadmin/logout', 'SuAdmin\AuthController@getLogout');
 
-Route::group(array('namespace' => 'Admin','middleware' => 'auth'), function()
-{
-    Route::get('admin/dashboard', 'DashboardController@index');
-    Route::get('admin/profile', 'DashboardController@getProfile');
-    Route::post('admin/profile', 'DashboardController@postProfile');
-});
-
-// Logging in and out
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', 'Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Auth\AuthController@getLogout');
-
-Route::group(['middleware' => ['web']], function(){
-	Route::auth();
-	Route::get('/home', 'HomeController@index');
-});
-
-Route::group(array('middleware' => 'web'), function () {
-    //Login Routes...
-    Route::get('/webpanel/login','SadminAuth\AuthController@showLoginForm');
-    Route::post('/webpanel/login','SadminAuth\AuthController@login');
-    Route::get('/webpanel/logout','SadminAuth\AuthController@logout');
-    Route::get('/webpanel', 'SadminController@index');
-}); 
+//Super Admin Routes
+Route::get('/suadmin/dashboard', 'SuAdmin\DashboardController@index');
+Route::get('/suadmin/profile', 'SuAdmin\DashboardController@getProfile');
+Route::post('/suadmin/profile', 'SuAdmin\DashboardController@postProfile');
+    
+//Admin Routes
+Route::get('/webpanel/dashboard', 'Admin\DashboardController@index');
+Route::get('/webpanel/login','Admin\AuthController@showLoginForm');
+Route::post('/webpanel/login','Admin\AuthController@login');
+Route::get('/webpanel/logout','Admin\AuthController@logout');
+ 
